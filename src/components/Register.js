@@ -1,6 +1,6 @@
-import React from "react";
-import InputForm from "./UI/InputForm";
-import useSignupForm from "../Custom Hooks/SignupForm";
+import React, { useState } from "react";
+import useForm from "../CustomHooks/form";
+import firebase from "../firebase";
 import {
   Button,
   Form,
@@ -14,70 +14,50 @@ import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom";
 
 const Register = () => {
-  const formValue = {
-    userName: {
-      elementType: "input",
-      elementConfig: {
-        placeholder: "UserName",
-        type: "text"
-      },
-      value: "",
-      icon: "user"
-    },
-    email: {
-      elementType: "input",
-      elementConfig: {
-        placeholder: "Email",
-        type: "email"
-      },
-      value: "",
-      icon: "mail"
-    },
-    password: {
-      elementType: "input",
-      elementConfig: {
-        placeholder: "password",
-        type: "password"
-      },
-      value: "",
-      icon: "lock"
-    },
-    confirmPassword: {
-      elementType: "input",
-      elementConfig: {
-        placeholder: "Confirm Password",
-        type: "password"
-      },
-      value: "",
-      icon: "repeat"
-    }
+  const [submitError, setSubmitError] = useState("");
+  const initialValues = {
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
   };
 
-  //pass initialValues
-  const { inputChangeHandler, submitHandler } = useSignupForm(formValue);
+  //firebase auth for register new User
+  const signup = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(input.email, input.password)
+      .then(createdUser => {
+        //setLoading(false);
+      })
+      .catch(error => {
+        setSubmitError(error.message);
+        //setLoading(false);
+      });
+  };
+  //passs initial form values and callback function for submit Handler
+  const { input, inputChangeHandler, submitHandler, errors } = useForm(
+    initialValues,
+    signup
+  );
 
-  //change object into an array
-  let formElementsArray = [];
-  for (let key in formValue) {
-    formElementsArray.push({
-      id: key,
-      config: formValue[key]
-    });
+  //Error messages on submit
+  let errorMessage = null;
+  if (errors.confirmPassword) {
+    errorMessage = <Message error>{errors.confirmPassword}</Message>;
   }
-  //loop through array to map Input
-  const form = formElementsArray.map(formElement => {
-    return (
-      <InputForm
-        key={formElement.id}
-        name={formElement.id}
-        elementType={formElement.config.elementType}
-        elementConfig={formElement.config.elementConfig}
-        value={formElement.config.value}
-        Icon={formElement.config.icon}
-        changed={inputChangeHandler}
-      />
-    );
-  });
+  if (errors.password) {
+    errorMessage = <Message error>{errors.password}</Message>;
+  }
+  if (errors.email) {
+    errorMessage = <Message error>{errors.email}</Message>;
+  }
+  if (errors.userName) {
+    errorMessage = <Message error>{errors.userName}</Message>;
+  }
+  if (submitError) {
+    errorMessage = <Message error>{submitError}</Message>;
+  }
 
   return (
     <Grid centered verticalAlign="middle" className="app">
@@ -86,19 +66,65 @@ const Register = () => {
           <Icon color="orange" name="puzzle piece" />
           Register for Dev Chat
         </Header>
-        <Segment>
+        {errorMessage}
+        <Segment stacked>
           <Form size="large" onSubmit={submitHandler}>
-            {form}
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="UserName"
+              type="text"
+              name="userName"
+              value={input.userName}
+              onChange={inputChangeHandler}
+            />
+
+            <Form.Input
+              fluid
+              icon="mail"
+              iconPosition="left"
+              placeholder="email"
+              type="email"
+              name="email"
+              value={input.email}
+              onChange={inputChangeHandler}
+            />
+
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+              name="password"
+              value={input.password}
+              onChange={inputChangeHandler}
+            />
+
+            <Form.Input
+              fluid
+              icon="repeat"
+              iconPosition="left"
+              placeholder="Confirm Passsword"
+              type="password"
+              name="confirmPassword"
+              value={input.confirmPassword}
+              onChange={inputChangeHandler}
+            />
+
             <Button color="orange" fluid size="large">
               Sign Up
             </Button>
           </Form>
         </Segment>
+
         <Message>
-          Already Registerd? <Link to="/login"> Login</Link>
+          Already Registerd? <Link to="/login">Login</Link>
         </Message>
       </Grid.Column>
     </Grid>
   );
 };
+
 export default Register;
