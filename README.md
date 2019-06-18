@@ -1,4 +1,9 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Login/Register Form
+
+Create Login and Registeration in React Hooks using Firebase Authentication.This is how it looks
+
+![Image of Login](https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth/blob/master/src/Images/login.png)
+![Image of Register](https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth/blob/master/src/Images/register.png)
 
 ## Available Scripts
 
