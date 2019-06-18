@@ -5,8 +5,6 @@
   "homepage": "https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth",
   "dependencies": {
     "firebase": "^6.2.0",
-    "gh-pages": "^2.0.1",
-    "md5": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
@@ -15,8 +13,6 @@
     "semantic-ui-react": "^0.87.2"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

@@ -1,18 +1,9 @@
-<<<<<<< HEAD
 # Login/Register Form
 
-=======
-
-# Login/Register Form
->>>>>>> 442a99179f2126bbe5fb71d2c6f05edef87083c0
 Create Login and Registeration in React Hooks using Firebase Authentication.This is how it looks
 
-![Image of Login](https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth/blob/master/src/Images/login.png)
+![Image of Login](https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth/blob/master/src/Images/login.png)
 ![Image of Register](https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth/blob/master/src/Images/register.png)
-<<<<<<< HEAD
-=======
-
->>>>>>> 442a99179f2126bbe5fb71d2c6f05edef87083c0
 
 ## Available Scripts
 
