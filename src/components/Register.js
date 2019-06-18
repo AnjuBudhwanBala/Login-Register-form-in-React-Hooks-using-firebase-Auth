@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import useForm from "../CustomHooks/form";
+import firebase from "../firebase";
 import {
   Button,
   Form,
@@ -10,15 +12,52 @@ import {
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom";
-import useSignupForm from "../Custom Hooks/SignupForm";
 
 const Register = () => {
-  const { input, inputChangeHandler, submitHandler, errors } = useSignupForm({
+  const [submitError, setSubmitError] = useState("");
+  const initialValues = {
     userName: "",
     email: "",
     password: "",
-    confirmPassword: "" // inital values
-  });
+    confirmPassword: ""
+  };
+
+  //firebase auth for register new User
+  const signup = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(input.email, input.password)
+      .then(createdUser => {
+        //setLoading(false);
+      })
+      .catch(error => {
+        setSubmitError(error.message);
+        //setLoading(false);
+      });
+  };
+  //passs initial form values and callback function for submit Handler
+  const { input, inputChangeHandler, submitHandler, errors } = useForm(
+    initialValues,
+    signup
+  );
+
+  //Error messages on submit
+  let errorMessage = null;
+  if (errors.confirmPassword) {
+    errorMessage = <Message error>{errors.confirmPassword}</Message>;
+  }
+  if (errors.password) {
+    errorMessage = <Message error>{errors.password}</Message>;
+  }
+  if (errors.email) {
+    errorMessage = <Message error>{errors.email}</Message>;
+  }
+  if (errors.userName) {
+    errorMessage = <Message error>{errors.userName}</Message>;
+  }
+  if (submitError) {
+    errorMessage = <Message error>{submitError}</Message>;
+  }
 
   return (
     <Grid centered verticalAlign="middle" className="app">
@@ -27,8 +66,9 @@ const Register = () => {
           <Icon color="orange" name="puzzle piece" />
           Register for Dev Chat
         </Header>
-        <Segment>
-          <Form size="large" onSubmit="">
+        {errorMessage}
+        <Segment stacked>
+          <Form size="large" onSubmit={submitHandler}>
             <Form.Input
               fluid
               icon="user"
@@ -78,11 +118,13 @@ const Register = () => {
             </Button>
           </Form>
         </Segment>
+
         <Message>
-          Already Registerd? <Link to="/login"> Login</Link>
+          Already Registerd? <Link to="/login">Login</Link>
         </Message>
       </Grid.Column>
     </Grid>
   );
 };
+
 export default Register;
