@@ -17,6 +17,10 @@ To get the frontend running locally:
 
 - Local web server will use port 3000.
 
+- Open Registration form using http://localhost:3000/register
+
+- To open Login Form use this http://localhost:3000/login
+
 ### Prerequisites
 
 - firebase
