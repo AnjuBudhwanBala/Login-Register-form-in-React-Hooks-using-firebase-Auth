@@ -28,10 +28,12 @@ const Register = () => {
       .auth()
       .createUserWithEmailAndPassword(input.email, input.password)
       .then(createdUser => {
-        //setLoading(false);
+        console.log(createdUser);
+        setSubmitError("");
       })
       .catch(error => {
-        setSubmitError(error.message);
+        console.log(error.message);
+        setSubmitError(error.code);
         //setLoading(false);
       });
   };
@@ -68,7 +70,7 @@ const Register = () => {
         </Header>
         {errorMessage}
         <Segment stacked>
-          <Form size="large" onSubmit={submitHandler}>
+          <Form size="large" onSubmit={submitHandler} autoComplete="off">
             <Form.Input
               fluid
               icon="user"

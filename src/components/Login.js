@@ -26,10 +26,11 @@ const Login = () => {
       .signInWithEmailAndPassword(input.email, input.password)
       .then(createdUser => {
         console.log(createdUser);
+        setSubmitError("");
       })
       .catch(error => {
         console.log(error);
-        setSubmitError(error.message);
+        setSubmitError(error.code);
       });
   };
   //passs initial form values and callback function for submit Handler
@@ -61,7 +62,7 @@ const Login = () => {
         </Header>
         {errorMessage}
         <Segment stacked>
-          <Form size="large" onSubmit={submitHandler} autoComplete="off">
+          <Form size="large" onSubmit={submitHandler} autoComplete="none">
             <Form.Input
               fluid
               icon="mail"
@@ -71,6 +72,7 @@ const Login = () => {
               name="email"
               value={input.email}
               onChange={inputChangeHandler}
+              autoComplete="email"
             />
             <Form.Input
               fluid
@@ -81,6 +83,7 @@ const Login = () => {
               name="password"
               value={input.password}
               onChange={inputChangeHandler}
+              autoComplete="password"
             />
             <Button color="violet" fluid size="large">
               Sign In
