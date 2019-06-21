@@ -2,6 +2,7 @@
   "name": "register-login-react-hooks",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/AnjuBudhwanBala/Login-Register-form-in-React-Hooks-using-firebase-Auth",
   "dependencies": {
     "firebase": "^6.2.0",
     "react": "^16.8.6",
