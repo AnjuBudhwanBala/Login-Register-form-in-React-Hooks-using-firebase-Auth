@@ -92,7 +92,7 @@ const Login = () => {
         </Segment>
 
         <Message>
-          Not Registerd? <Link to="/register">Register</Link>
+          Not Registerd? <Link to="/">Register</Link>
         </Message>
       </Grid.Column>
     </Grid>

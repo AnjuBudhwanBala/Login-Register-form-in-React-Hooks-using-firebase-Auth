@@ -13,7 +13,7 @@ import {
 import "semantic-ui-css/semantic.min.css";
 import { Link } from "react-router-dom";
 
-const Register = () => {
+const Register = props => {
   const [submitError, setSubmitError] = useState("");
   const initialValues = {
     userName: "",
@@ -23,7 +23,7 @@ const Register = () => {
   };
 
   //firebase auth for register new User
-  const signup = () => {
+  const signup = props => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(input.email, input.password)
